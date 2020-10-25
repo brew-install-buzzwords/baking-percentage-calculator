@@ -52,18 +52,16 @@ export class AppComponent implements OnInit {
       name: 'Instant Dried Yeast',
       value: 4,
     },
-  ]
+  ];
 
   private defaultNewIngredient: Ingredient = {
     name: 'Ingredient',
     value: 100,
   };
 
-  public selected="option1";
-
   public model: Model;
 
-  public reset() {
+  public reset(): void {
     this.model = {
       flours: [],
       ingredients: [],
@@ -75,7 +73,7 @@ export class AppComponent implements OnInit {
     this.updateAllPercentages();
   }
 
-  public addNewFlour() {
+  public addNewFlour(): void {
     const newFlour: Flour = {
       ...this.defaultNewFlour,
       id: uid(),
@@ -86,19 +84,19 @@ export class AppComponent implements OnInit {
     this.updateAllIngredientValues();
   }
 
-  public addDefaultIngredients() {
+  public addDefaultIngredients(): void {
     this.defaultIngredients.forEach(x => this.addNewIngredient(x));
   }
 
-  public addNewIngredient(ingredient?: Ingredient) {
+  public addNewIngredient(ingredient?: Ingredient): void {
     const properties = ingredient || this.defaultNewIngredient;
-    
+
     const newIngredient = {
       ...properties,
       percentage: this.calculatePercentage(this.defaultNewIngredient),
       id: uid(),
-    }
-    
+    };
+
     this.model.ingredients.push(newIngredient);
 
     this.updateTotalWeight();
@@ -108,80 +106,79 @@ export class AppComponent implements OnInit {
     let weight = 0;
     this.model.flours.forEach(x => {
       weight = weight + x.value;
-    })
+    });
     return weight;
   }
 
-  private calculatePercentage(ingredient: Ingredient) {
+  private calculatePercentage(ingredient: Ingredient): number {
     return ingredient.value / this.totalFlourWeight;
   }
 
-  private calculateValue(ingredient: Ingredient) {
+  private calculateValue(ingredient: Ingredient): number {
     return this.totalFlourWeight * ingredient.percentage;
   }
 
-  private updateTotalWeight() {
+  private updateTotalWeight(): void {
     let total = 0;
     [...this.model.flours, ...this.model.ingredients].forEach(x => {
       total = total + x.value;
-    })
+    });
     this.model.totalWeight = total;
   }
 
-  private updateAllPercentages() {
+  private updateAllPercentages(): void {
     const ingredients = this.model.ingredients;
-    for (let i = 0; i < ingredients.length; i++) {
-      const ingredient = ingredients[i];
+    ingredients.forEach(ingredient => {
       ingredient.percentage = this.calculatePercentage(ingredient);
-    }
+    });
   }
 
-  private updateAllIngredientValues() {
+  private updateAllIngredientValues(): void {
     const ingredients = this.model.ingredients;
-    for (let i = 0; i < ingredients.length; i++) {
-      const ingredient = ingredients[i];
+    ingredients.forEach(ingredient => {
       ingredient.value = this.calculateValue(ingredient);
-    }
+    });
+
   }
 
-  public onFlourChange(value: string | number, id: string) {
+  public onFlourChange(value: string | number, id: string): void {
     const modelFlour = this.model.flours.find(x => x.id === id);
     modelFlour.value = Number(value);
     this.updateTotalWeight();
     this.updateAllIngredientValues();
   }
 
-  public onIngredientValueChange(value: string, id: string) {
+  public onIngredientValueChange(value: string, id: string): void {
     const modelIngredient = this.model.ingredients.find(x => x.id === id);
     modelIngredient.value = Number(value);
     modelIngredient.percentage = this.calculatePercentage(modelIngredient);
     this.updateTotalWeight();
   }
 
-  public onIngredientPercentageChange(percentage: string, id: string) {
+  public onIngredientPercentageChange(percentage: string, id: string): void {
     const modelIngredient = this.model.ingredients.find(x => x.id === id);
     modelIngredient.percentage = Number(percentage);
     modelIngredient.value = this.calculateValue(modelIngredient);
     this.updateTotalWeight();
   }
 
-  public adjustRecipe(factor: number) {
+  public adjustRecipe(factor: number): void {
     this.model.flours.forEach(flour => {
       this.onFlourChange(flour.value * factor, flour.id);
     });
   }
 
-  public deleteFlour(id: string) {
+  public deleteFlour(id: string): void {
     this.model.flours = this.model.flours.filter(flour => flour.id !== id);
     this.updateAllIngredientValues();
   }
 
-  public deleteIngredient(id: string) {
+  public deleteIngredient(id: string): void {
     this.model.ingredients = this.model.ingredients.filter(ingredient => ingredient.id !== id);
     this.updateTotalWeight();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.reset();
   }
 }
