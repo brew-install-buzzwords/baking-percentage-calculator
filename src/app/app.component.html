@@ -4,7 +4,7 @@
     <h1 class="text-center">Bread Baking Percentages Calculator</h1>
 
     <div class="form-section">
-      <div *ngFor="let flour of model.flours" class="form-row">
+      <div *ngFor="let flour of model.flours; index as i" class="form-row" [ngClass]="{'form-row-alt': i % 2 === 1}">
         <mat-form-field class="form-row-item" appearance="fill">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Flour" [value]="flour.name" type="text">
@@ -25,7 +25,7 @@
     <mat-divider></mat-divider>
 
     <div class="form-section">
-      <div *ngFor="let ingredient of model.ingredients" class="form-row">
+      <div *ngFor="let ingredient of model.ingredients; index as i" class="form-row" [ngClass]="{'form-row-alt': i % 2 === 1}">
         <mat-form-field class="third-width base-padding" appearance="fill">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Ingredient" [value]="ingredient.name" type="text">
