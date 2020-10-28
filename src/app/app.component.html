@@ -18,9 +18,10 @@
 
         <button mat-button (click)="deleteFlour(flour.id)" class="form-row-item" [disabled]="model.flours.length === 1">Delete</button>
       </div>
+
+      <button mat-raised-button (click)="addNewFlour()" class="add-item-button">Add new flour</button>
     </div>
 
-    <button mat-raised-button (click)="addNewFlour()">Add new flour</button>
 
     <mat-divider></mat-divider>
 
@@ -46,9 +47,9 @@
         <button mat-button (click)="deleteIngredient(ingredient.id)" [disabled]="model.ingredients.length === 1">Delete</button>
 
       </div>
-    </div>
 
-    <button mat-raised-button (click)="addNewIngredient()">Add new ingredient</button>
+      <button mat-raised-button (click)="addNewIngredient()" class="add-item-button">Add new ingredient</button>
+    </div>
 
     <mat-divider></mat-divider>
 
