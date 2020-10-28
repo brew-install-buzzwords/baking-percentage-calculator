@@ -4,7 +4,7 @@
     <h1 class="text-center">Bread Baking Percentages Calculator</h1>
 
     <div class="form-section">
-      <div *ngFor="let flour of model.flours" class="form-row">
+      <div *ngFor="let flour of model.flours; index as i" class="form-row" [ngClass]="{'form-row-alt': i % 2 === 1}">
         <mat-form-field class="form-row-item" appearance="fill">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Flour" [value]="flour.name" type="text">
@@ -18,14 +18,15 @@
 
         <button mat-button (click)="deleteFlour(flour.id)" class="form-row-item" [disabled]="model.flours.length === 1">Delete</button>
       </div>
+
+      <button mat-raised-button (click)="addNewFlour()" class="add-item-button">Add new flour</button>
     </div>
 
-    <button mat-raised-button (click)="addNewFlour()">Add new flour</button>
 
     <mat-divider></mat-divider>
 
     <div class="form-section">
-      <div *ngFor="let ingredient of model.ingredients" class="form-row">
+      <div *ngFor="let ingredient of model.ingredients; index as i" class="form-row" [ngClass]="{'form-row-alt': i % 2 === 1}">
         <mat-form-field class="third-width base-padding" appearance="fill">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Ingredient" [value]="ingredient.name" type="text">
@@ -46,9 +47,9 @@
         <button mat-button (click)="deleteIngredient(ingredient.id)" [disabled]="model.ingredients.length === 1">Delete</button>
 
       </div>
-    </div>
 
-    <button mat-raised-button (click)="addNewIngredient()">Add new ingredient</button>
+      <button mat-raised-button (click)="addNewIngredient()" class="add-item-button">Add new ingredient</button>
+    </div>
 
     <mat-divider></mat-divider>
 
