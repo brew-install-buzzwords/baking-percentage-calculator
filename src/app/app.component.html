@@ -27,18 +27,18 @@
 
     <div class="form-section">
       <div *ngFor="let ingredient of model.ingredients; index as i" class="form-row" [ngClass]="{'form-row-alt': i % 2 === 1}">
-        <mat-form-field class="third-width base-padding" appearance="fill">
+        <mat-form-field class="base-padding form-row-item" appearance="fill">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Ingredient" [value]="ingredient.name" type="text">
         </mat-form-field>
         
-        <mat-form-field class="third-width base-padding" appearance="fill">
+        <mat-form-field class="base-padding form-row-item" appearance="fill">
           <mat-label>Weight</mat-label>
           <input matInput placeholder="1000" [value]="ingredient.value" type="number" (change)="onIngredientValueChange($event.target.value, ingredient.id)">
           <span matSuffix>g</span>
         </mat-form-field>
   
-        <mat-form-field class="third-width base-padding" appearance="fill">
+        <mat-form-field class="base-padding form-row-item" appearance="fill">
           <mat-label>Percentage</mat-label>
           <input matInput placeholder="1000" [value]="ingredient.percentage" type="number" (change)="onIngredientPercentageChange($event.target.value, ingredient.id)" step=0.01>
           <span matSuffix>%</span>

@@ -10,6 +10,7 @@
   background: white
   border-radius: 5px
   box-shadow: 0px 0px 15px gray
+  padding: 1em
 
 .form-row
   display: flex
@@ -18,9 +19,8 @@
   padding: 0.5em
 
 .form-row-alt
-  background-color: rgba(196, 132, 44, .1)
+  background-color: rgb(245,245,245)
 
-.form-row-item
 
 .base-margin-right
   margin-right: 0em
@@ -43,3 +43,7 @@
 
 mat-divider
   margin-bottom: 2em
+
+@media only screen and (max-width: 800px)
+  .form-row-item
+    flex-basis: 100%
