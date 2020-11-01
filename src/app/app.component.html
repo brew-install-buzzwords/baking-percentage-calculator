@@ -12,14 +12,14 @@
         
         <mat-form-field class="form-row-item" appearance="fill">
           <mat-label>Weight</mat-label>
-          <input matInput placeholder="1000" [value]="flour.value" type="number" (change)="onFlourChange($event.target.value, flour.id)">
+          <input matInput placeholder="1000" [(ngModel)]="flour.value" type="number" (change)="onFlourChange($event.target.value, flour.id)">
           <span matSuffix>g</span>
         </mat-form-field>
 
-        <button mat-button (click)="deleteFlour(flour.id)" class="form-row-item" [disabled]="model.flours.length === 1">Delete</button>
+        <button mat-button color="warn" (click)="deleteFlour(flour.id)" class="form-row-item" [disabled]="model.flours.length === 1">Delete</button>
       </div>
 
-      <button mat-raised-button (click)="addNewFlour()" class="add-item-button">Add new flour</button>
+      <button mat-raised-button color="primary" (click)="addNewFlour()" class="add-item-button">Add new flour</button>
     </div>
 
 
@@ -34,32 +34,38 @@
         
         <mat-form-field class="base-padding form-row-item" appearance="fill">
           <mat-label>Weight</mat-label>
-          <input matInput placeholder="1000" [value]="ingredient.value" type="number" (change)="onIngredientValueChange($event.target.value, ingredient.id)">
+          <input matInput placeholder="1" [(ngModel)]="ingredient.value" type="number" (change)="onIngredientValueChange($event.target.value, ingredient.id)">
           <span matSuffix>g</span>
         </mat-form-field>
   
         <mat-form-field class="base-padding form-row-item" appearance="fill">
           <mat-label>Percentage</mat-label>
-          <input matInput placeholder="1000" [value]="ingredient.percentage" type="number" (change)="onIngredientPercentageChange($event.target.value, ingredient.id)" step=0.01>
+          <input matInput placeholder="1" [(ngModel)]="ingredient.percentage" type="number" (change)="onIngredientPercentageChange($event.target.value, ingredient.id)" min=1>
           <span matSuffix>%</span>
         </mat-form-field>
 
-        <button mat-button (click)="deleteIngredient(ingredient.id)" [disabled]="model.ingredients.length === 1">Delete</button>
+        <button mat-button color="warn" (click)="deleteIngredient(ingredient.id)" [disabled]="model.ingredients.length === 1">Delete</button>
 
       </div>
 
-      <button mat-raised-button (click)="addNewIngredient()" class="add-item-button">Add new ingredient</button>
+      <button mat-raised-button color="primary" (click)="addNewIngredient()" class="add-item-button">Add new ingredient</button>
     </div>
 
     <mat-divider></mat-divider>
 
     <div class="form-section">
-      <div>
+      <div class="results-row">
         <mat-form-field class="form-row-item" appearance="fill">
           <mat-label>Total Weight</mat-label>
           <input matInput placeholder="1000" [value]="model.totalWeight" type="number" disabled=true>
           <span matSuffix>g</span>
         </mat-form-field>
+        <span>&nbsp;&#247;&nbsp;</span>
+        <mat-form-field class="form-row-item" appearance="fill">
+          <mat-label>Number of loaves</mat-label>
+          <input matInput (change)="onLoafChange($event)" [(ngModel)]="this.model.numberOfLoaves" type="number">
+        </mat-form-field>
+        <span>&nbsp;=&nbsp;{{gramsPerLoaf}}g&nbsp;per&nbsp;loaf</span>
       </div>
 
     </div>
@@ -67,14 +73,12 @@
     <mat-divider></mat-divider>
 
     <div class="form-section">
-      <button mat-raised-button (click)="adjustRecipe(2)">Double</button>
-      <button mat-raised-button (click)="adjustRecipe(0.5)">Halve</button>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <div class="form-section">
-      <button mat-raised-button (click)="reset()">Reset</button>
+      <div class="form-row">
+        <button mat-raised-button color="primary" (click)="adjustRecipe(2)">Double</button>
+        <button mat-raised-button color="primary" (click)="adjustRecipe(0.5)">Halve</button>
+        <button mat-raised-button color="accent" (click)="reset()">Reset</button>
+      </div>
+      
     </div>
 
   </div>

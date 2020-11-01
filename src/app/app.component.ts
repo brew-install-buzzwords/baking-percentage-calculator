@@ -18,21 +18,15 @@ interface Model {
   flours: Flour[];
   ingredients: Ingredient[];
   totalWeight: number;
+  numberOfLoaves: number;
 }
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'baking-percentage-calculator';
-
-  private emptyModel: Model = {
-    flours: [],
-    ingredients: [],
-    totalWeight: 0,
-  };
 
   private defaultNewFlour: Flour = {
     name: 'Flour',
@@ -66,6 +60,7 @@ export class AppComponent implements OnInit {
       flours: [],
       ingredients: [],
       totalWeight: 0,
+      numberOfLoaves: 1,
     };
 
     this.addNewFlour();
@@ -110,12 +105,16 @@ export class AppComponent implements OnInit {
     return weight;
   }
 
+  get gramsPerLoaf(): number {
+    return this.model.totalWeight / this.model.numberOfLoaves;
+  }
+
   private calculatePercentage(ingredient: Ingredient): number {
-    return ingredient.value / this.totalFlourWeight;
+    return ingredient.value / this.totalFlourWeight * 100;
   }
 
   private calculateValue(ingredient: Ingredient): number {
-    return this.totalFlourWeight * ingredient.percentage;
+    return this.totalFlourWeight * ingredient.percentage / 100;
   }
 
   private updateTotalWeight(): void {
@@ -141,23 +140,50 @@ export class AppComponent implements OnInit {
 
   }
 
-  public onFlourChange(value: string | number, id: string): void {
-    const modelFlour = this.model.flours.find(x => x.id === id);
-    modelFlour.value = Number(value);
-    this.updateTotalWeight();
+  public onFlourChange(value: number | string, id: string): void {
+    const valueAsNumber = Number(value);
+    const modelFlour = this.model.flours.find(x => x.id === id); 
+
+    if (valueAsNumber === 0) {
+      modelFlour.value = 1;
+    } else if (valueAsNumber < 0) {
+
+    } else {
+      modelFlour.value = Number(valueAsNumber);
+    }
+
     this.updateAllIngredientValues();
+    this.updateTotalWeight();
   }
 
   public onIngredientValueChange(value: string, id: string): void {
     const modelIngredient = this.model.ingredients.find(x => x.id === id);
-    modelIngredient.value = Number(value);
+    const valueAsNumber = Number(value);
+
+    if (valueAsNumber < 0) {
+      modelIngredient.value = valueAsNumber * -1;
+    } else if (valueAsNumber === 0) {
+      modelIngredient.value = 1;
+    } else {
+      modelIngredient.value = valueAsNumber
+    }
+    
     modelIngredient.percentage = this.calculatePercentage(modelIngredient);
     this.updateTotalWeight();
   }
 
   public onIngredientPercentageChange(percentage: string, id: string): void {
     const modelIngredient = this.model.ingredients.find(x => x.id === id);
-    modelIngredient.percentage = Number(percentage);
+    const percentageAsNumber = Number(percentage);
+
+    if (percentageAsNumber < 0) {
+      modelIngredient.percentage = percentageAsNumber * -1;
+    } else if (percentageAsNumber === 0){
+      modelIngredient.percentage = 1;
+    } else {
+      modelIngredient.percentage = percentageAsNumber;
+    }
+
     modelIngredient.value = this.calculateValue(modelIngredient);
     this.updateTotalWeight();
   }
@@ -166,11 +192,13 @@ export class AppComponent implements OnInit {
     this.model.flours.forEach(flour => {
       this.onFlourChange(flour.value * factor, flour.id);
     });
+    this.model.numberOfLoaves = this.model.numberOfLoaves * factor;
   }
 
   public deleteFlour(id: string): void {
     this.model.flours = this.model.flours.filter(flour => flour.id !== id);
     this.updateAllIngredientValues();
+    this.updateTotalWeight();
   }
 
   public deleteIngredient(id: string): void {
@@ -180,5 +208,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.reset();
+  }
+
+  public onLoafChange(event) {
+    if (Number(event.target.value) < 1) {
+      event.preventDefault();
+      this.model.numberOfLoaves = 1;
+    }
   }
 }
