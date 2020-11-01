@@ -142,7 +142,7 @@ export class AppComponent implements OnInit {
 
   public onFlourChange(value: number | string, id: string): void {
     const valueAsNumber = Number(value);
-    const modelFlour = this.model.flours.find(x => x.id === id); 
+    const modelFlour = this.model.flours.find(x => x.id === id);
 
     if (valueAsNumber === 0) {
       modelFlour.value = 1;
@@ -165,9 +165,9 @@ export class AppComponent implements OnInit {
     } else if (valueAsNumber === 0) {
       modelIngredient.value = 1;
     } else {
-      modelIngredient.value = valueAsNumber
+      modelIngredient.value = valueAsNumber;
     }
-    
+
     modelIngredient.percentage = this.calculatePercentage(modelIngredient);
     this.updateTotalWeight();
   }
@@ -210,7 +210,7 @@ export class AppComponent implements OnInit {
     this.reset();
   }
 
-  public onLoafChange(event) {
+  public onLoafChange(event): void {
     if (Number(event.target.value) < 1) {
       event.preventDefault();
       this.model.numberOfLoaves = 1;
