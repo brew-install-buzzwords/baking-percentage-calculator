@@ -54,6 +54,7 @@ export class AppComponent implements OnInit {
   };
 
   public model: Model;
+  public panelOpenState = false;
 
   public reset(): void {
     this.model = {
