@@ -29,6 +29,10 @@
   padding: 0.5em;
 }
 
+.command-row {
+  justify-content: center;
+}
+
 .form-row-alt {
   background-color: rgb(245,245,245);
 }
@@ -65,4 +69,10 @@ mat-divider {
   .form-row-item {
     flex-basis: 100%;
   }
+}
+
+.description {
+  margin-bottom: 1em;
+  margin-right: 2em;
+  margin-left: 2em;
 }

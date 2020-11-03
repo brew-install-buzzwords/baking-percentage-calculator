@@ -3,6 +3,33 @@
 
     <h1 class="text-center">Bread Baking Percentages Calculator</h1>
 
+    <mat-divider></mat-divider>
+
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false" class="description">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            About this tool
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+          Bakers percentages are a common way of expressing the ratio of ingredients to flour for breads and other baked goods. They provide a helpful shorthand for expressing 
+          the proportions of a recipe that can be easily adjusted to different batch sizes.
+        </p>
+        <p>
+          To calculate the bakers percentage of any ingredient, simply divide the weight of that ingredient (in grams) by the weight of the flour (in grams).
+        </p>
+
+        <mat-action-row>
+          <button mat-button color="primary" (click)="panelOpenState = false">Close</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+    
+
+    <mat-divider></mat-divider>
+
     <div class="form-section">
       <div *ngFor="let flour of model.flours; index as i" class="form-row" [ngClass]="{'form-row-alt': i % 2 === 1}">
         <mat-form-field class="form-row-item" appearance="fill">
@@ -70,16 +97,12 @@
 
     </div>
 
-    <mat-divider></mat-divider>
-
-    <div class="form-section">
-      <div class="form-row">
-        <button mat-raised-button color="primary" (click)="adjustRecipe(2)">Double</button>
-        <button mat-raised-button color="primary" (click)="adjustRecipe(0.5)">Halve</button>
-        <button mat-raised-button color="accent" (click)="reset()">Reset</button>
-      </div>
-      
-    </div>
+    <mat-action-row class="command-row">
+      <button mat-raised-button color="primary" (click)="adjustRecipe(2)">Double</button>
+      <button mat-raised-button color="primary" (click)="adjustRecipe(0.5)">Halve</button>
+      <button mat-raised-button color="accent" (click)="reset()">Reset</button>
+    </mat-action-row>
+        
 
   </div>
 </div>
