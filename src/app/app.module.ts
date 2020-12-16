@@ -12,10 +12,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { PrinterComponent } from './printer/printer.component';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PrinterComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatFormFieldModule,
     FormsModule,
     MatExpansionModule,
+    NgxPrintModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

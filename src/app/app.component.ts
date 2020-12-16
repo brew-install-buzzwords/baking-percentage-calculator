@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import uid from 'uid';
 
-interface Flour {
+export interface Flour {
   name: string;
   value: number;
   id?: string;
 }
 
-interface Ingredient {
+export interface Ingredient {
   name: string;
   value: number;
   percentage?: number;
   id?: string;
 }
 
-interface Model {
+export interface Model {
+  name: string;
   flours: Flour[];
   ingredients: Ingredient[];
   totalWeight: number;
@@ -27,6 +28,9 @@ interface Model {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  public title = 'Bread Ratio Calculator';
+  public showPrinter = false;
 
   private defaultNewFlour: Flour = {
     name: 'Flour',
@@ -58,6 +62,7 @@ export class AppComponent implements OnInit {
 
   public reset(): void {
     this.model = {
+      name: 'My Bread Recipe',
       flours: [],
       ingredients: [],
       totalWeight: 0,

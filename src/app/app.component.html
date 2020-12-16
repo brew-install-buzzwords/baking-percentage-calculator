@@ -32,12 +32,12 @@
 
     <div class="form-section">
       <div *ngFor="let flour of model.flours; index as i" class="form-row" [ngClass]="{'form-row-alt': i % 2 === 1}">
-        <mat-form-field class="form-row-item" appearance="fill">
+        <mat-form-field class="form-row-item">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Flour" [value]="flour.name" type="text">
         </mat-form-field>
         
-        <mat-form-field class="form-row-item" appearance="fill">
+        <mat-form-field class="form-row-item">
           <mat-label>Weight</mat-label>
           <input matInput placeholder="1000" [(ngModel)]="flour.value" type="number" (change)="onFlourChange($event.target.value, flour.id)">
           <span matSuffix>g</span>
@@ -54,18 +54,18 @@
 
     <div class="form-section">
       <div *ngFor="let ingredient of model.ingredients; index as i" class="form-row" [ngClass]="{'form-row-alt': i % 2 === 1}">
-        <mat-form-field class="base-padding form-row-item" appearance="fill">
+        <mat-form-field class="base-padding form-row-item">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Ingredient" [value]="ingredient.name" type="text">
         </mat-form-field>
         
-        <mat-form-field class="base-padding form-row-item" appearance="fill">
+        <mat-form-field class="base-padding form-row-item">
           <mat-label>Weight</mat-label>
           <input matInput placeholder="1" [(ngModel)]="ingredient.value" type="number" (change)="onIngredientValueChange($event.target.value, ingredient.id)">
           <span matSuffix>g</span>
         </mat-form-field>
   
-        <mat-form-field class="base-padding form-row-item" appearance="fill">
+        <mat-form-field class="base-padding form-row-item">
           <mat-label>Percentage</mat-label>
           <input matInput placeholder="1" [(ngModel)]="ingredient.percentage" type="number" (change)="onIngredientPercentageChange($event.target.value, ingredient.id)" min=1>
           <span matSuffix>%</span>
@@ -82,13 +82,13 @@
 
     <div class="form-section">
       <div class="results-row">
-        <mat-form-field class="form-row-item" appearance="fill">
+        <mat-form-field class="form-row-item">
           <mat-label>Total Weight</mat-label>
           <input matInput placeholder="1000" [value]="model.totalWeight" type="number" disabled=true>
           <span matSuffix>g</span>
         </mat-form-field>
         <span>&nbsp;&#247;&nbsp;</span>
-        <mat-form-field class="form-row-item" appearance="fill">
+        <mat-form-field class="form-row-item">
           <mat-label>Number of loaves</mat-label>
           <input matInput (change)="onLoafChange($event)" [(ngModel)]="this.model.numberOfLoaves" type="number">
         </mat-form-field>
@@ -100,9 +100,9 @@
     <mat-action-row class="command-row">
       <button mat-raised-button color="primary" (click)="adjustRecipe(2)">Double</button>
       <button mat-raised-button color="primary" (click)="adjustRecipe(0.5)">Halve</button>
-      <button mat-raised-button color="accent" (click)="reset()">Reset</button>
+      <button mat-raised-button color="warn" (click)="reset()">Reset</button>
     </mat-action-row>
-        
 
+    <app-printer [model]="model" [title]="title" [showPrinter]="showPrinter"></app-printer>
   </div>
 </div>

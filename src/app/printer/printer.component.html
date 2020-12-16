@@ -1,0 +1,35 @@
+<div id="print-section" [hidden]="!showPrinter">
+
+    <h1>{{model.name}}</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Ingredient</th>
+                <th>Weight</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let flour of model.flours">
+                <td>{{flour.name}}</td>
+                <td>{{flour.value | number}}</td>
+                <td>{{flour.percentage | number}}</td>
+            </tr>
+            <tr *ngFor="let ingredient of model.ingredients">
+                <td>{{ingredient.name}}</td>
+                <td>{{ingredient.value}}g</td>
+                <td>{{ingredient.percentage}}%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Makes {{model.numberOfLoaves}} <span *ngIf="model.numberOfLoaves === 1">loaf ({{model.totalWeight}})</span><span *ngIf="model.numberOfLoaves !== 1">loaves ({{model.totalWeight / model.numberOfLoaves | number}}g each)</span></p>
+     
+</div>
+
+<button mat-raised-button color="accent"
+    styleSheetFile="../assets/printer.css"
+    [printTitle]="title"
+    printSectionId="print-section"  
+    ngxPrint>Print recipe</button>
