@@ -31,7 +31,7 @@ export interface Model {
 export class AppComponent implements OnInit {
 
   @ViewChild('recipeCardSvg', {read: ElementRef, static: false}) recipeCardSvg: ElementRef;
-  
+
   public title = 'Bread Ratio Calculator';
   public showPrinter = false;
   public showPreview = false;
@@ -230,7 +230,7 @@ export class AppComponent implements OnInit {
   }
 
   public createRecipeCardPreview(): void {
-    this.showPreview = true;  
+    this.showPreview = true;
   }
 
   public get svgRows(): string[] {
@@ -239,22 +239,22 @@ export class AppComponent implements OnInit {
 
     [...this.model.flours, ...this.model.ingredients].forEach((item: any) => {
       items.push([item.name, item.value, item.percentage || '']);
-    })
-    
+    });
+
     const t = table(items, { align: [ 'l', 'r', 'r' ] });
     return t.split('\n');
   }
 
-  public createRecipeCard() {
+  public createRecipeCard(): void {
     const svgString = new XMLSerializer().serializeToString(this.recipeCardSvg.nativeElement);
-    var canvas = document.getElementById('canvas') as HTMLCanvasElement;
+    const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const DOMURL: any = window.URL || window.webkitURL;
     const img = new Image();
     const svg = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
     const url = DOMURL.createObjectURL(svg);
-    img.onload = function() {
+    img.onload = () => {
         ctx.drawImage(img, 0, 0, 2160, 2160);
         const pngUrl = canvas.toDataURL('image/png', 1.0);
 
