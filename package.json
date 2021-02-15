@@ -22,7 +22,9 @@
     "@angular/platform-browser": "~10.0.3",
     "@angular/platform-browser-dynamic": "~10.0.3",
     "@angular/router": "~10.0.3",
+    "ngx-print": "^1.2.0-beta.5",
     "rxjs": "~6.5.5",
+    "text-table": "^0.2.0",
     "tslib": "^2.0.0",
     "uid": "^1.0.0",
     "zone.js": "~0.10.3"
