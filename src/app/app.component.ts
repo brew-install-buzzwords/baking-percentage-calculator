@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import uid from 'uid';
+import table from 'text-table';
 
 export interface Flour {
   name: string;
@@ -29,8 +30,11 @@ export interface Model {
 })
 export class AppComponent implements OnInit {
 
+  @ViewChild('recipeCardSvg', {read: ElementRef, static: false}) recipeCardSvg: ElementRef;
+  
   public title = 'Bread Ratio Calculator';
   public showPrinter = false;
+  public showPreview = false;
 
   private defaultNewFlour: Flour = {
     name: 'Flour',
@@ -47,7 +51,7 @@ export class AppComponent implements OnInit {
       value: 21,
     },
     {
-      name: 'Instant Dried Yeast',
+      name: 'Instant Yeast',
       value: 4,
     },
   ];
@@ -72,6 +76,8 @@ export class AppComponent implements OnInit {
     this.addNewFlour();
     this.addDefaultIngredients();
     this.updateAllPercentages();
+
+    this.showPreview = false;
   }
 
   public addNewFlour(): void {
@@ -221,5 +227,46 @@ export class AppComponent implements OnInit {
       event.preventDefault();
       this.model.numberOfLoaves = 1;
     }
+  }
+
+  public createRecipeCardPreview(): void {
+    this.showPreview = true;  
+  }
+
+  public get svgRows(): string[] {
+    const items = [['Ingredient', 'Weight(g)', '%']];
+
+
+    [...this.model.flours, ...this.model.ingredients].forEach((item: any) => {
+      items.push([item.name, item.value, item.percentage || '']);
+    })
+    
+    const t = table(items, { align: [ 'l', 'r', 'r' ] });
+    return t.split('\n');
+  }
+
+  public createRecipeCard() {
+    const svgString = new XMLSerializer().serializeToString(this.recipeCardSvg.nativeElement);
+    var canvas = document.getElementById('canvas') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const DOMURL: any = window.URL || window.webkitURL;
+    const img = new Image();
+    const svg = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+    const url = DOMURL.createObjectURL(svg);
+    img.onload = function() {
+        ctx.drawImage(img, 0, 0, 2160, 2160);
+        const pngUrl = canvas.toDataURL('image/png', 1.0);
+
+        const a = document.createElement('a');
+        a.href = pngUrl;
+        a.download = 'recipe.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        DOMURL.revokeObjectURL(pngUrl);
+    };
+    img.src = url;
   }
 }
