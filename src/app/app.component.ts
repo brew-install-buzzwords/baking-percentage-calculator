@@ -252,7 +252,7 @@ export class AppComponent implements OnInit {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const DOMURL: any = window.URL || window.webkitURL;
     const img = new Image();
-    const svg = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+    const svg = new Blob([svgString], {type: 'image/svg+xml'});
     const url = DOMURL.createObjectURL(svg);
     img.onload = () => {
         ctx.drawImage(img, 0, 0, 2160, 2160);
