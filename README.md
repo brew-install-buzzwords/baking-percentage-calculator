@@ -1,27 +1,41 @@
-# baking-percentage-calculator
+# 🍞 baking-percentage-calculator 🥖
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.2.
+baking-percentage-calculator is an interactive static web app for calculate baking ratios for bread, as well as sharing recipes online with Instagram-optimized recipe cards.
 
-## Development server
+This app is running live at [breadratiocalculator.com](https://www.breadratiocalculator.com/)!
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+![Screenshot from breadratiocalculator.com](https://github.com/brew-install-buzzwords/baking-percentage-calculator/blob/docs/github-resources/brc-screenshot.png)
 
-## Code scaffolding
+## Key features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This app includes the following features:
 
-## Build
+- Calculate baking ratios for a given recipe
+- Calculate weight of ingredients for given baking ratios
+- Easily scale recipes
+- Calculate the per-loaf dough weight
+- Automatically update values to match any changes
+- Generate square recipe cards for sharing on instagram, facebook, reddit, or pinterest
+- Print your recipe as a pdf
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+<img src="https://github.com/brew-install-buzzwords/baking-percentage-calculator/blob/docs/github-resources/recipe.png" width=540/>
 
-## Running unit tests
+## Bugs
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+If you find a bug, please open an issue with as much detail as possible (operating system, browser, console errors).
 
-## Running end-to-end tests
+## Contributing
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+This project is open to contributions, but please comment on an issue and wait to be assigned before you begin to work on it. This project does not currently have any formal contribution guidelines, but they will be added if there is interest from potential contributors.
 
-## Further help
+## Technical details
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.2. The production site is hosted on aws s3. 
+
+## Testing
+
+The only tests in this project currently are the ones that were automatically generated when I created the project. Actual tests may be added in the future, but it's not currently a priority.
+
+## Shameless plug
+
+If you think this project is cool, you might be interested in some other things I've made. Check out [my github profile](https://github.com/brew-install-buzzwords) or [my software development blog](https://www.brewinstallbuzzwords.com/) to see more of my work. If you'd like to receive monthly updates on what I'm working on, [subscribe to my newsletter](https://mailchi.mp/89dc077154c7/brewinstallbuzzwords)!
