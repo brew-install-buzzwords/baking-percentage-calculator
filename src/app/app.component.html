@@ -34,7 +34,7 @@
       <div *ngFor="let flour of model.flours; index as i" class="form-row" [ngClass]="{'form-row-alt': i % 2 === 1}">
         <mat-form-field class="form-row-item">
           <mat-label>Name</mat-label>
-          <input matInput placeholder="Flour" [value]="flour.name" type="text">
+          <input matInput placeholder="Flour" [(ngModel)]="flour.name" type="text">
         </mat-form-field>
         
         <mat-form-field class="form-row-item">
