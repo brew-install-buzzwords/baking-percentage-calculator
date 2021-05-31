@@ -103,12 +103,16 @@ div[hidden] {
   padding-top: 1em;
 }
 
-#previewNote {
+.preview-caption {
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: .5em;
   font-style: italic;
+}
+
+#overflowAlert {
+  color: orangered;
 }
 
 tspan:first-child {

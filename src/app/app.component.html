@@ -121,7 +121,8 @@
         <text y="1000" x="100" font-size="35">breadratiocalculator.com</text>
       </svg>
 
-      <div id="previewNote">Note: The above image is just a preview. The downloaded image may look slightly different.</div>
+      <div *ngIf="showCharLimitWarning" id="overflowAlert" class="preview-caption">At least one ingredient name exceeds the limit of 13 characters, which means that this ingredient card may not be displaying all of your ingredient names properly.</div>
+      <div class="preview-caption">Note: The above image is just a preview. The downloaded image may look slightly different.</div>
 
       <mat-action-row class="command-row">
         <button mat-raised-button color="accent" (click)="createRecipeCard()">Download recipe card</button>
