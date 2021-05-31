@@ -23,6 +23,8 @@ export interface Model {
   numberOfLoaves: number;
 }
 
+const RECIPE_CARD_INGREDIENT_CHAR_LIMIT = 13;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -35,6 +37,7 @@ export class AppComponent implements OnInit {
   public title = 'Bread Ratio Calculator';
   public showPrinter = false;
   public showPreview = false;
+  public showCharLimitWarning = false;
 
   private defaultNewFlour: Flour = {
     name: 'Flour',
@@ -234,14 +237,18 @@ export class AppComponent implements OnInit {
   }
 
   public get svgRows(): string[] {
+    let limitExceeded = false;
     const items = [['Ingredient', 'Weight(g)', '%']];
 
-
     [...this.model.flours, ...this.model.ingredients].forEach((item: any) => {
-      items.push([item.name, item.value, item.percentage || '']);
+      if (item.name.length > RECIPE_CARD_INGREDIENT_CHAR_LIMIT) {
+        limitExceeded = true;
+      }
+      items.push([item.name.substr(0, RECIPE_CARD_INGREDIENT_CHAR_LIMIT), this.round(item.value), this.round(item.percentage) || '']);
     });
 
     const t = table(items, { align: [ 'l', 'r', 'r' ] });
+    this.showCharLimitWarning = limitExceeded;
     return t.split('\n');
   }
 
@@ -268,5 +275,9 @@ export class AppComponent implements OnInit {
         DOMURL.revokeObjectURL(pngUrl);
     };
     img.src = url;
+  }
+
+  private round(num: number, decimalPlaces: number = 2): number {
+    return Math.round((num + Number.EPSILON) * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
   }
 }
